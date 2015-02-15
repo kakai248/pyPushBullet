@@ -7,9 +7,10 @@ My friend showed me PushBullet, I liked it. I like Python, combine the two to ac
 
 You will need...
 - Python (2 or 3 should be fine)
-- websocket-client
-- requests
-- python-magic
+- websocket-client - ```pip install websocket-client```
+- requests - ```pip install requests```
+- python-magic - ```pip install python-magic```
+
 All of which are available from pip.
 
 You can get your API Key from https://www.pushbullet.com/account
@@ -23,6 +24,9 @@ apiKey = "YOUR_API_KEY_HERE"
 p = PushBullet(apiKey)
 # Get a list of devices
 devices = p.getDevices()
+
+# Get a list of contacts
+contacts = p.getcontacts()
 
 # Send a note
 p.pushNote(devices[0]["iden"], 'Hello world', 'Test body')
@@ -40,7 +44,12 @@ p.pushLink(devices[0]["iden"], "Google", "http://www.google.com")
 p.pushFile(devices[0]["iden"], "file.txt", "This is a text file", open("file.txt", "rb"))
 
 # Send a note to a channel
-p.pushNote('#channel_tag', 'Hello world', 'Test body')
+p.pushNote('channel_tag', 'Hello world', 'Test body', recipient_type='channel_tag')
+
+# Send a note to an email
+p.pushNote('myemail@domain.com', 'Hello world', 'Test body', recipient_type='email')
+
+
 ```
 
 Using the command line tool:
@@ -51,7 +60,7 @@ Using the command line tool:
 ./pushbullet_cmd.py YOUR_API_KEY_HERE list udeCmddJpl Groceries Apples Bread Milk
 ./pushbullet_cmd.py YOUR_API_KEY_HERE link udeCmddJpl Google http://www.google.com
 ./pushbullet_cmd.py YOUR_API_KEY_HERE file udeCmddJpl test.jpg
-./pushbullet_cmd.py YOUR_API_KEY_HERE note #channel_tag "Hello World" "Test Body"
+./pushbullet_cmd.py YOUR_API_KEY_HERE note "#channel_tag" "Hello World" "Test Body"
 
 ```
 
